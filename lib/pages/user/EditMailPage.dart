@@ -431,3 +431,23 @@ class _EditMailPageState extends State<EditMailPage>{
     );
   }
 }
+
+// 这个页面中主要使用了2个接口，接口的详细信息如下：
+//
+// 1. 接口地址：`http://a408599l51.wicp.vip/Mail/sendMail`
+//
+// 接口参数：`code`, `receiverMail`
+//
+// 返回数据：未在代码中明确指出，但从代码逻辑推测，可能返回一个表示操作成功或失败的状态码或信息。
+//
+// 用途：这个接口在 `_getCurrentCode` 和 `_getNewCode` 函数中被调用，用于发送验证码到用户的邮箱。`code` 是生成的验证码，`receiverMail` 是用户的邮箱地址。
+//
+// 2. 接口地址：`http://a408599l51.wicp.vip/Login/updateMail`
+//
+// 接口参数：`loginAccount`, `loginMail`
+//
+// 返回数据：未在代码中明确指出，但从代码逻辑推测，可能返回一个表示操作成功或失败的状态码或信息。
+//
+// 用途：这个接口在 `_updateMail` 函数中被调用，用于更新用户的邮箱地址。`loginAccount` 是用户的登录账号，`loginMail` 是新的邮箱地址。
+//
+// 这2个接口都是在用户更换邮箱时被调用的，用于发送验证码到用户的邮箱，并更新用户的邮箱地址。

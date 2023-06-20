@@ -254,3 +254,10 @@ class _ManageBodyState extends State<ManageBodyWidget>{
     );
   }
 }
+
+
+//
+//  "http://a408599l51.wicp.vip/App/selectAppByType?appType=$currentChip"
+// - 这个接口用于根据搜索条件获取应用列表。$currentChip是分类名称
+//
+// 这个接口返回的数据被用于更新应用的状态，包括应用的图标、名称、版本等信息

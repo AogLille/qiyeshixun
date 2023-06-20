@@ -771,3 +771,23 @@ class EditAppState extends State<EditAppWidget>{
   }
 
 }
+//
+// 1. 接口地址：http://a408599l51.wicp.vip/App/selectAppById
+// 接口参数：appId
+// 对应变量名：widget.appId
+// 用途：根据appId获取App的详细信息
+//
+// 2. 接口地址：http://a408599l51.wicp.vip/App/updateApp
+// 接口参数：appId, appName, appExplain, appVersion, appIcon, appScreenshot, appState, appType, appAuthor, loginAccount, applyExplain, appLog
+// 对应变量名：app["appId"], nameController.text, explainController.text, versionController.text, appIcon, appScreenshot, app["appState"], chipString, app["appAuthor"], widget.arguments['loginAccount'], applyExplainController.text, applyLogController.text
+// 用途：提交修改后的App信息
+//
+// 3. 接口地址：http://a408599l51.wicp.vip/test/upload
+// 接口参数：file, name
+// 对应变量名：_image, "/icon/" + now.toString()
+// 用途：上传App的图标
+//
+// 4. 接口地址：http://a408599l51.wicp.vip/test/batchUpload
+// 接口参数：fileList, nameList
+// 对应变量名：_imageData, nameList
+// 用途：批量上传App的截图

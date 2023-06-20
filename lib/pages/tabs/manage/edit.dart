@@ -771,3 +771,20 @@ class EditAppState extends State<EditAppWidget>{
   }
 
 }
+
+
+// 1. 接口：http://a408599l51.wicp.vip/App/selectAppById
+// - 输入：appId（应用ID）
+// - 输出：应用信息（app）
+
+// 2. 接口：http://a408599l51.wicp.vip/App/updateApp
+// - 输入：appId（应用ID），appName（应用名称），appExplain（应用解释），appVersion（应用版本），appIcon（应用图标），appScreenshot（应用截图），appState（应用状态），appType（应用类型），appAuthor（应用作者），loginAccount（登录账户），applyExplain（申请解释），appLog（应用日志）
+// - 输出：操作结果
+
+// 3. 接口：http://a408599l51.wicp.vip/test/upload
+// - 输入：file（文件），name（名称）
+// - 输出：操作结果
+//
+// 4. 接口：http://a408599l51.wicp.vip/test/batchUpload
+// - 输入：fileList（文件列表），nameList（名称列表）
+// - 输出：操作结果

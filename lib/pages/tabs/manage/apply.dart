@@ -667,3 +667,29 @@ class _ApplyAppState extends State<ApplyAppWidget>{
   }
 
 }
+
+
+//1. **API接口**: `http://a408599l51.wicp.vip/App/addApp`
+//- **请求方式**: POST
+//- **数据**:
+//- `appName`: 要添加的应用的名称。这个数据从 `nameController` 获取。
+//- `appExplain`: 应用的说明。这个数据从 `explainController` 获取。
+//- `appVersion`: 应用的版本。这个数据从 `versionController` 获取。
+//- `appIcon`: 应用图标的URL。这个数据在 `postApplyInfo` 方法中生成。
+//- `appScreenshot`: 应用截图的URL。这个数据在 `postApplyInfo` 方法中生成。
+//- `appType`: 应用的类型。这个数据在 `postApplyInfo` 方法中生成。
+//- `appAuthor`: 应用的作者。这个数据从 `widget.arguments['loginAccount']` 获取。
+//- `loginAccount`: 当前登录的用户账号。这个数据从 `widget.arguments['loginAccount']` 获取。
+//- `applyExplain`: 应用申请的说明。这个数据从 `applyExplainController` 获取。
+//
+//2. **API接口**: `http://a408599l51.wicp.vip/test/upload`
+//- **请求方式**: POST
+//- **数据**:
+//- `file`: 要上传的文件。这是应用的图标文件。
+//- `name`: 文件的名称。这个数据在 `upLoadIcon` 方法中生成。
+//
+//3. **API接口**: `http://a408599l51.wicp.vip/test/batchUpload`
+//- **请求方式**: POST
+//- **数据**:
+//- `fileList`: 要上传的文件列表。这些是应用的截图文件。
+//- `nameList`: 文件的名称列表。这些数据在 `upLoadScreenShot` 方法中生成。

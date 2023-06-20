@@ -15,31 +15,34 @@ class Aduit  extends StatefulWidget {
   State<Aduit > createState() => _AduitState(arguments:this.arguments);
 }
 
+// 以下是一些全局变量和列表
+var flag=1;// 刷新数据的标志
+var  _studentGradesList=[]; // 学生等级列表
+var list=[]; // 数据列表
+var _typeList = [TypeBean(name: '申请人'), TypeBean(name: '申请状态'),TypeBean(name: '类型'),  TypeBean(name: '申请时间'),]; // 类型列表
+List<DataColumn> _dataColumnList = [];// DataColumn列表
+List<DataRow> _dataRowList = [];// DataRow列表
 
-var flag=1;
-var  _studentGradesList=[];
-var list=[];
-var _typeList = [TypeBean(name: '申请人'), TypeBean(name: '申请状态'),TypeBean(name: '类型'),  TypeBean(name: '申请时间'),];
-List<DataColumn> _dataColumnList = [];
-List<DataRow> _dataRowList = [];
 
-
+// 定义一个名为'_AduitState'的State类，用于管理'Aduit' widget的状态
 class _AduitState extends State<Aduit> {
-  late EasyRefreshController _controller;
+  late EasyRefreshController _controller; // 定义一个EasyRefresh控制器
   Map arguments;
-  _AduitState({required this.arguments});
+  _AduitState({required this.arguments});// 这是构造函数，用于初始化这个State对象
 
+  // 这个函数会在widget初始化时调用
   @override
   void initState() {
     super.initState();
     print("审核界面");
     print(arguments);
-    _getData();
-    _myDataColumnList();
-    _controller = EasyRefreshController();
+    _getData();// 获取数据
+    _myDataColumnList();// 获取DataColumn列表
+    _controller = EasyRefreshController();// 初始化EasyRefresh控制器
 
   }
 
+  // 这是build方法，用于构建widget的UI
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -59,20 +62,22 @@ class _AduitState extends State<Aduit> {
 
         body:
         EasyRefresh.custom(
+          // 使用EasyRefresh自定义刷新
           enableControlFinishRefresh: false,
           controller: _controller,
           header: ClassicalHeader(),
           footer: ClassicalFooter(),
 
           onRefresh: () async {
+            // 定义刷新时的操作
             await Future.delayed(Duration(seconds: 1), () {
               print('onRefresh');
               flag = 1;
-              _getData();
+              _getData();// 获取数据
               setState(() {
 
               });
-              _controller.resetLoadState();
+              _controller.resetLoadState();// 重置加载状态
             });
           },
 
@@ -124,7 +129,7 @@ class _AduitState extends State<Aduit> {
 
   }
 
-
+// 这个函数用于从远程服务器获取数据
   void _getData() async {
     Dio dio = Dio();
     final response = await dio.get('http://a408599l51.wicp.vip/Audit/selectShowAudit?loginAccount=${arguments['loginAccount']}');
@@ -143,18 +148,21 @@ class _AduitState extends State<Aduit> {
     });
 
   }
+
+  // 审核通过的函数
   void auditPass(int  auditNumber ) async{
     Dio dio=Dio();
     Response response =
-    await dio .post("http://a408599l51.wicp.vip/Audit/auditPass?auditNumber=$auditNumber&loginAccount=${arguments['loginAccount']}");
+    await dio.post("http://a408599l51.wicp.vip/Audit/auditPass?auditNumber=$auditNumber&loginAccount=${arguments['loginAccount']}");
     flag = 1;
     _getData();
   }
 
+  // 审核拒绝的函数
   void auditRejected(int  auditNumber ) async{
     Dio dio=Dio();
     Response response =
-    await dio .post("http://a408599l51.wicp.vip/Audit/auditRejected?auditNumber=$auditNumber&loginAccount=${arguments['loginAccount']}");
+    await dio.post("http://a408599l51.wicp.vip/Audit/auditRejected?auditNumber=$auditNumber&loginAccount=${arguments['loginAccount']}");
     flag = 1;
     _getData();
 
@@ -499,3 +507,22 @@ class StudentGradesBean {
       {this.isSelected = true}
       );
 }
+
+// 这个页面需要以下的接口数据：
+//
+// 1. `http://a408599l51.wicp.vip/Audit/selectShowAudit?loginAccount=${arguments['loginAccount']}`：这是一个GET请求，通过指定的loginAccount获取审核列表数据。
+//
+// 返回的数据应该是一个包含以下字段的列表：
+// - "applyName"：申请人姓名
+// - "auditState"：审核状态
+// - "applyType"：申请类型
+// - "applyTime"：申请时间
+// - "auditNumber"：审核编号
+// - "preData"：预处理数据
+// - "overData"：完成数据
+//
+// 2. `http://a408599l51.wicp.vip/Audit/auditPass?auditNumber=$auditNumber&loginAccount=${arguments['loginAccount']}`：这是一个POST请求，表示审核通过。
+//
+// 3. `http://a408599l51.wicp.vip/Audit/auditRejected?auditNumber=$auditNumber&loginAccount=${arguments['loginAccount']}`：这也是一个POST请求，表示审核被拒绝。
+//
+// 在调用审核通过或审核拒绝接口后，页面会再次请求审核列表接口以更新列表数据。

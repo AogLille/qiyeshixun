@@ -118,3 +118,9 @@ class _search_jumpState extends State<search_jumpPage> {
     );
   }
 }
+
+//
+//  `http://a408599l51.wicp.vip/App/selectAppByCondition?condition=${conditionController.text}`
+// - 这个接口用于根据搜索条件获取应用列表。`${conditionController.text}`是一个变量，代表搜索条件。
+//
+// 这个接口返回的数据被用于更新应用的状态，包括应用的图标、名称、版本等信息。这些信息在搜索结果中显示，并且用户可以点击搜索结果跳转到应用的详细信息页面。

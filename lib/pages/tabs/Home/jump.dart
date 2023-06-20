@@ -185,3 +185,11 @@ class _jumpState extends State<jumppage> {
     );
   }
 }
+
+
+
+// `http://a408599l51.wicp.vip/App/selectAppById?appId=${arguments['name']}`
+// - 这个接口用于根据应用ID获取应用的详细信息。`${arguments['name']}`是一个变量，代表应用ID。
+//
+// 这个接口返回的数据被用于更新应用的状态，包括应用的名称appName、图标appIcon、
+// 类型appType、版本appVersion、作者appAuthor、简介appExplain、日志appLog以及应用截图等信息。

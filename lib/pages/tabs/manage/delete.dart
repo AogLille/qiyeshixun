@@ -307,3 +307,13 @@ class DeleteAppState extends State<DeleteAppWidget>{
   }
 
 }
+
+// 这个页面需要的接口数据以及对应的变量名如下：
+//
+// 1. 接口：http://a408599l51.wicp.vip/App/selectAppById
+// - 输入：appId（应用ID）
+// - 输出：应用信息（app）
+//
+// 2. 接口：http://a408599l51.wicp.vip/App/deleteApp
+// - 输入：appId（应用ID），loginAccount（登录账户），applyExplain（申请解释）
+// - 输出：操作结果

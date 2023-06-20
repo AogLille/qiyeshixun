@@ -15,7 +15,8 @@ class Uploader  extends StatefulWidget {
   State<Uploader > createState() => _UploaderState(arguments:this.arguments);
 }
 
-
+// 以下几行定义了几个全局变量，包括一个标记flag，一个学生等级列表_studentGradesList，一个普通列表list，
+// 一个类型列表_typeList（包含四个字段：申请人、申请状态、类型、申请时间），一个数据列列表_dataColumnList和一个数据行列表_dataRowList
 var flag=1;
 var  _studentGradesList=[];
 var list=[];
@@ -24,11 +25,13 @@ List<DataColumn> _dataColumnList = [];
 List<DataRow> _dataRowList = [];
 
 
+// 定义组件状态类_UploaderState，继承自State类，并指定其对应的组件类为Uploader
 class _UploaderState extends State<Uploader> {
   late EasyRefreshController _controller;
   Map arguments;
   _UploaderState({required this.arguments});
 
+  // 重写initState方法，在组件初始化时调用，用于完成一些初始设置
   @override
   void initState() {
     super.initState();
@@ -40,6 +43,7 @@ class _UploaderState extends State<Uploader> {
 
   }
 
+  // 重写build方法，返回要渲染的界面Widget
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,6 +127,7 @@ class _UploaderState extends State<Uploader> {
   }
 
 
+  // 定义了一个名为_getData的异步方法，用于向服务器发送请求获取数据
   void _getData() async {
 
     Dio dio = Dio();
@@ -434,3 +439,14 @@ class StudentGradesBean {
       {this.isSelected = true}
       );
 }
+
+
+//'http://a408599l51.wicp.vip/Audit/selectShowAudit?loginAccount=${arguments['loginAccount']}'
+// 返回的数据应该是一个包含以下字段的列表：
+// - "applyName"：申请人姓名
+// - "auditState"：审核状态
+// - "applyType"：申请类型
+// - "applyTime"：申请时间
+// - "auditNumber"：审核编号
+// - "preData"：预处理数据
+// - "overData"：完成数据

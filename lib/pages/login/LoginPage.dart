@@ -320,7 +320,8 @@ class _LoginState extends State<LoginPage> with SingleTickerProviderStateMixin {
 }
 
 
-// 这个登录页面需要从后端接口获取的数据主要是用户的登录信息。从代码中我们可以看出，它是通过发送一个 POST 请求到 'http://a408599l51.wicp.vip/Login/login' 这个地址，然后在请求体中包含两个字段，即"loginAccount"和"loginPassword"，分别代表用户的登录账号和密码。
+// 这个登录页面需要从后端接口获取的数据主要是用户的登录信息。从代码中我们可以看出，它是通过发送一个 POST 请求到 'http://a408599l51.wicp.vip/Login/login'
+// 这个地址，然后在请求体中包含两个字段，即"loginAccount"和"loginPassword"，分别代表用户的登录账号和密码。
 //
 // 当请求成功后，后端会返回一个包含用户信息的 JSON 数据，这个数据会被转化为一个 Map 列表。根据代码，我们可以看到这个 Map 里应该包含以下的信息：
 //

@@ -187,3 +187,15 @@ class SearchListState extends State<SearchListWidget>{
     );
   }
 }
+
+// 这个页面中主要使用了一个接口，接口的详细信息如下：
+//
+// 1. 接口地址：`http://a408599l51.wicp.vip/App/selectAppByCondition`
+//
+// 2. 接口参数：`condition`
+//
+// 3. 对应的变量名：`condition`
+//
+// 这个接口在 `getListByCondition` 函数中被调用，用于根据条件搜索应用。`condition` 参数是用户在搜索框中输入的搜索条件，它被传递给 `getListByCondition` 函数，然后被添加到接口的 URL 中。
+// 这个接口返回的数据被用来更新 `listMap` 变量，这个变量存储了搜索结果的列表。每个列表项是一个包含应用信息的字典，包括应用的图标（`appIcon`）、
+// 名称（`appName`）、版本（`appVersion`）和 ID（`appId`）。

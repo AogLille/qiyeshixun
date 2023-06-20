@@ -257,3 +257,15 @@ class CropImageState extends State<CropImageWidget>{
     );
   }
 }
+
+// 这个页面中主要使用了两个接口，接口的详细信息如下：
+// 1. 接口地址：`http://a408599l51.wicp.vip/Login/updateProfilePhoto`
+// 接口参数：`loginAccount`, `profilePhoto`
+// 返回数据：未在代码中明确指出，但从代码逻辑推测，可能返回一个表示操作成功或失败的状态码或信息。
+// 用途：这个接口在 `_updateHeadImage` 函数中被调用，用于更新用户的头像URL。`loginAccount` 是用户的登录账号，`profilePhoto` 是新的头像URL。
+//
+// 2. 接口地址：`http://a408599l51.wicp.vip/test/upload`
+// 接口参数：`file`, `name`
+// 返回数据：未在代码中明确指出，但从代码逻辑推测，可能返回一个表示操作成功或失败的状态码或信息。
+// 用途：这个接口在 `_uploadImage` 函数中被调用，用于上传用户裁剪后的头像图片。`file` 是用户裁剪后的头像图片文件，`name` 是图片的名称。
+// 这两个接口都是在用户选择并裁剪新的头像后被调用的，用于将新的头像上传到服务器并更新用户的头像URL。

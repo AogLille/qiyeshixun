@@ -356,3 +356,16 @@ class _HomePageState extends State<Homepage> {
     });
   }
 }
+
+// http://a408599l51.wicp.vip/App/selectAppByType?appType=$currentChip
+// 参数：appType，这是一个字符串，代表应用类型。
+// 返回的数据：这个接口应该返回一个应用列表，每个应用应该包含应用的相关信息，如应用的图标、名称、版本等。
+
+// http://a408599l51.wicp.vip/Rotation/selectAllRotation
+// 参数：无
+// 返回的数据：这个接口应该返回一个轮播图列表，每个轮播图应该包含轮播图的相关信息，如轮播图的URL。
+
+
+// http://a408599l51.wicp.vip/App/selectedApp
+// 参数：无
+// 返回的数据：这个接口应该返回一个被选中的应用列表，每个应用应该包含应用的相关信息，如应用的图标、名称、版本等。
