@@ -16,7 +16,9 @@ import 'package:flutter/material.dart';
 
 
 
-
+// 定义应用的路由
+// key 是路由的名字，value 是一个函数，该函数返回对应的页面 Widget
+// 函数接收两个参数：一个是 context，一个是 arguments，用于传递页面参数
 final routes= {
   '/Aduit': (context,{arguments}) => Aduit(arguments:arguments),
   '/JpreData':(context,{arguments})=>jumppage(arguments:arguments),
@@ -37,19 +39,23 @@ final routes= {
   '/home/headImage':(context,{arguments}) => EditHeadPortraitPage(arguments:arguments),
 };
 
-//固定写法
+// 定义 onGenerateRoute 函数，它是 MaterialApp 的一个参数，用于生成路由
 var onGenerateRoute = (RouteSettings settings){
-  //String? 表示 name 为可空类型
+  // 获取路由名
   final String? name = settings.name;
-  //Function? 表示 pageContentBuilder 为可空类型
+  // 在 routes 中查找对应的页面生成函数
   final Function? pageContentBuilder = routes[name];
+  // 如果找到了
   if (pageContentBuilder != null) {
+    // 如果有传递参数
     if (settings.arguments != null) {
+      // 创建并返回一个新的页面路由
       final Route route = MaterialPageRoute(
           builder: (context) =>
               pageContentBuilder(context, arguments: settings.arguments));
       return route;
     } else {
+      // 没有传递参数时也创建并返回一个新的页面路由
       final Route route =
       MaterialPageRoute(builder: (context) => pageContentBuilder(context));
       return route;

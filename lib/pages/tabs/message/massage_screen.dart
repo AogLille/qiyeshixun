@@ -28,6 +28,8 @@ class KeyUtils{
 Map listData = [{}] as Map;
 
 List<Map<String, dynamic>> msgInfo=[{}];
+
+
 class _MassageState extends State<Massage>{
 
 
@@ -41,6 +43,7 @@ class _MassageState extends State<Massage>{
 
   late Future _future;
 
+  // 初始化操作，包括获取消息信息，配置极光推送等
   @override
   void initState(){
     print("测试传参2");
@@ -83,6 +86,7 @@ class _MassageState extends State<Massage>{
 
   }
 
+  // 从服务器获取消息
   Future _getMsgInfo() async{
     String loginaccount = arguments["loginAccount"];
     var url = Uri.parse('http://a408599l51.wicp.vip/Message/selectMessageByAccount?loginAccount=$loginaccount');
@@ -98,7 +102,7 @@ class _MassageState extends State<Massage>{
 
   }
 
-
+  //构建界面，包括AppBar，Drawer，消息列表等
   @override
   Widget build(BuildContext context) {
 
@@ -149,6 +153,7 @@ class _MassageState extends State<Massage>{
         ));
   }
 
+  //下拉刷新操作
   Future<Null> _handleRefresh() async {
     await Future.delayed(Duration(seconds: 2),(){
       setState(() {
@@ -160,6 +165,7 @@ class _MassageState extends State<Massage>{
 
 }
 
+// 显示消息的列表
 class HomeContent extends StatelessWidget {
 
   Function? callback;
@@ -205,5 +211,12 @@ class HomeContent extends StatelessWidget {
 
 
 
-
-
+// 在这段代码中，需要从后端接口获取的数据有以下两部分：
+//
+// 1. 用户的消息信息：通过访问'http://a408599l51.wicp.vip/Message/selectMessageByAccount'接口获取，需要的参数是'loginAccount'。返回的数据中，可能包含的字段有：
+// - "senderPhoto"：消息发送者的头像
+// - "messageContent"：消息的内容
+// - "messageTime"：消息的发送时间
+//
+// 2. JPush的推送消息：在接收到极光推送的通知时，可能会获得一些包含在推送消息中的数据，但具体数据结构和内容取决于推送消息的内容。
+// 需要注意的是，以上的分析基于代码中的实现，具体的数据结构和内容可能会根据实际的后端接口和业务需求有所不同。

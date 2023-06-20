@@ -18,6 +18,7 @@ class RegisterPage extends StatefulWidget{
 
 class _RegisterPageState extends State<RegisterPage> {
 
+  // 创建一个Controller来管理TextFormField中的文本
   final _accountController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPwdController = TextEditingController();
@@ -25,20 +26,25 @@ class _RegisterPageState extends State<RegisterPage> {
   final _authCodeController = TextEditingController();
   final _userNameController = TextEditingController();
 
+  // 创建一个变量来判断密码是否可见
   var _isShowPwd = true;
 
+  // 为Form创建一个key，可以用于在后续操作中进行验证
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  var _authCode='';
-  String _record='';
+  var _authCode=''; // 用于保存生成的验证码
+  String _record='';// 用于保存发送验证码的邮箱
 
+  // 向用户邮箱发送验证码的方法
   _getAuthCode()async{
     _record = _mailController.text;
+    // 生成四位随机数作为验证码
     for(int i=0;i<4;i++){
       _authCode+=(Random().nextInt(10)).toString();
     }
     print(_authCode);
     Dio dio = Dio();
+    // 发送get请求到服务器，附带验证码和邮箱参数
     String url = 'http://a408599l51.wicp.vip/Mail/sendMail';
     var response = await dio.get(url,queryParameters: {
       'code':_authCode,
@@ -47,6 +53,7 @@ class _RegisterPageState extends State<RegisterPage> {
     print(response.data);
   }
 
+  // 以下为验证码倒计时相关的代码
   bool _isButtonEnable=true;  //按钮状态 是否可点击
   String buttonText='发送验证码'; //初始文本
   int count=60;      //初始倒计时时间
@@ -62,6 +69,8 @@ class _RegisterPageState extends State<RegisterPage> {
       }
     });
   }
+
+  // 初始化一个定时器，用于实现验证码倒计时功能
   void _initTimer(){
     _timer = Timer.periodic(Duration(seconds: 1), (Timer timer) {
       count--;
@@ -85,7 +94,8 @@ class _RegisterPageState extends State<RegisterPage> {
     }
     super.dispose();
   }
-  
+
+  // 注册方法，向服务器发送post请求，将用户输入的信息发送给服务器
   _register()async{
     var _userInfo = {
       "loginAccount":_accountController.text,
@@ -96,12 +106,15 @@ class _RegisterPageState extends State<RegisterPage> {
     };
     String _userjsonString = jsonEncode(_userInfo);
     print(_userjsonString);
+    // 验证码检查
     if(_authCodeController.text == _authCode) {
       var url = Uri.parse('http://a408599l51.wicp.vip/Login/addLogin');
+      // 发送post请求
       var response = await http.post(url, body: _userjsonString, headers: {"content-type": "application/json"});
       setState(() {
         print('${response.body}');
         if (response.body=='true') {
+          // 提示注册成功并跳转到登录界面
           Fluttertoast.showToast(
               msg: "注册成功并返回到登录界面",
               toastLength: Toast.LENGTH_SHORT,
@@ -113,6 +126,7 @@ class _RegisterPageState extends State<RegisterPage> {
           );
           Navigator.pushNamed(context, '/login');
         } else {
+          // 提示用户账号名已被注册
           Fluttertoast.showToast(
               msg: "该账号名已被注册",
               toastLength: Toast.LENGTH_SHORT,
@@ -125,6 +139,7 @@ class _RegisterPageState extends State<RegisterPage> {
         }
       });
     }else{
+      // 提示用户验证码错误
       Fluttertoast.showToast(
           msg: "验证码错误",
           toastLength: Toast.LENGTH_SHORT,
@@ -544,3 +559,16 @@ class _RegisterPageState extends State<RegisterPage> {
   }
 }
 
+
+// 这个注册页面的代码需要以下接口数据：
+//
+// 1. 发送验证码的接口: `'http://a408599l51.wicp.vip/Mail/sendMail'`
+// - 需要的参数是验证码(`'code'`)和接收者的邮箱(`'receiverMail'`)。
+// - 发送方式是GET。
+//
+// 2. 用户注册的接口: `'http://a408599l51.wicp.vip/Login/addLogin'`
+// - 需要的参数包括登录账号(`'loginAccount'`)，用户名(`'loginName'`)，登录密码(`'loginPassword'`)，用户邮箱(`'loginMail'`)和用户角色(`'loginRole'`)。
+// - 发送方式是POST，并且内容类型是"application/json"。
+//
+// 这些接口数据都是基于用户的输入，例如用户名、密码、邮箱等。这些输入通过Flutter的`TextEditingController`进行管理。
+// 对于验证码，系统会随机生成四位数字，然后发送到用户提供的邮箱中。用户需要将收到的验证码输入到对应的表单字段中，然后系统会根据这个验证码来验证用户的输入是否正确。

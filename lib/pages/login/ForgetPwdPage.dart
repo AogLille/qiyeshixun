@@ -21,32 +21,43 @@ class ForgetPwdPage extends StatefulWidget{
 }
 
 class _ForgetPwdPageState extends State<ForgetPwdPage>{
+  // 初始化传入参数的变量
   Map arguments;
+  // 构造函数，获取传入参数
   _ForgetPwdPageState({required this.arguments});
 
+  // 当前步骤的记录器
   var _currentStep = 0;
 
+  // 初始化各个文本控制器
   final _mailController = TextEditingController();
   final _authCodeController = TextEditingController();
   final _passwordController = TextEditingController();
   final _confirmPwdController = TextEditingController();
 
+  // 是否显示密码，默认为true
   var _isShowPwd = true;
 
+  // 获取邮箱和验证码的变量
   var _getMail;
   var _authCode='';
 
+
+  // 当页面初始化完成后，调用该方法进行手机号验证
   @override
   void initState(){
     super.initState();
     _verifyPhone();
   }
 
+  // 验证手机号的方法
   _verifyPhone()async{
     Dio dio =Dio();
+    // 请求的接口URL
     String url = 'http://a408599l51.wicp.vip/Login/selectLoginById';
+    // 发送GET请求，参数为登录账号
     var response = await dio.get(url,queryParameters: {'loginAccount':arguments['loginAccount']});
-    print(response.data);
+    // 更新状态，将返回的邮箱信息存入_getMail变量
     setState(() {
       _getMail = response.data['loginMail'].toString();
       if(_getMail is String){
@@ -55,9 +66,12 @@ class _ForgetPwdPageState extends State<ForgetPwdPage>{
     });
   }
 
+  // 设置新密码的方法
   _setNewPwd()async{
     Dio dio = Dio();
+    // 请求的接口URL
     String url = 'http://a408599l51.wicp.vip/Login/updatePassword';
+    // 发送POST请求，参数为登录账号和新密码
     var response = await dio.post(url,queryParameters: {
       'loginAccount':arguments['loginAccount'],
       'loginPassword':_passwordController.text
@@ -65,13 +79,17 @@ class _ForgetPwdPageState extends State<ForgetPwdPage>{
     print(response.data);
   }
 
+  // 获取验证码的方法
   _getAuthCode()async{
+    // 生成四位数的随机验证码
     for(int i=0;i<4;i++){
       _authCode+=(Random().nextInt(10)).toString();
     }
     print(_authCode);
     Dio dio = Dio();
+    // 请求的接口URL
     String url = 'http://a408599l51.wicp.vip/Mail/sendMail';
+    // 发送GET请求，参数为验证码和接收邮箱
     var response = await dio.get(url,queryParameters: {
       'code':_authCode,
       'receiverMail':_mailController.text
@@ -79,6 +97,7 @@ class _ForgetPwdPageState extends State<ForgetPwdPage>{
     print(response.data);
   }
 
+  // 倒计时发送验证码的相关变量和方法
   bool _isButtonEnable=true;  //按钮状态 是否可点击
   String buttonText='发送验证码'; //初始文本
   int count=60;      //初始倒计时时间
@@ -411,3 +430,15 @@ class _ForgetPwdPageState extends State<ForgetPwdPage>{
   }
 
 }
+
+
+// 在这段代码中，有以下几个API接口，它们需要的数据是：
+//
+// 1. `http://a408599l51.wicp.vip/Login/selectLoginById`：
+// // 这个接口需要'loginAccount'作为查询参数，用来根据用户账号查找相关的用户信息。返回的数据中，应包含用户的电子邮箱地址。
+//
+// 2. `http://a408599l51.wicp.vip/Mail/sendMail`：
+// // 这个接口需要两个查询参数，'code'和'receiverMail'。'code'是生成的验证码，'receiverMail'是用户的电子邮件地址，接口会向该邮件发送一个包含验证码的邮件。
+//
+// 3. `http://a408599l51.wicp.vip/Login/updatePassword`：
+// // 这个接口需要两个查询参数，'loginAccount'和'loginPassword'。'loginAccount'是用户的账号，'loginPassword'是用户设置的新密码，接口将会更新用户账号对应的密码。
