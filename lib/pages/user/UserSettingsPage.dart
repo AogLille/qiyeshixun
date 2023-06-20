@@ -148,3 +148,9 @@ class _UserSettingsPageState extends State<UserSettingsPage>{
   }
 
 }
+
+//这个页面使用了一个HTTP GET请求来获取用户的信息。
+//
+//接口地址: 'http://a408599l51.wicp.vip/Login/deleteLogin'
+//
+//接口参数: 'loginAccount'，该参数值来自于页面初始化时传入的参数。

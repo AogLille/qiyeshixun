@@ -274,3 +274,23 @@ class _EditPwdPageState extends State<EditPwdPage>{
     );
   }
 }
+
+// 这个页面中主要使用了两个接口，接口的详细信息如下：
+//
+// 1. 接口地址：`http://a408599l51.wicp.vip/Login/login`
+//
+// 接口参数：`loginAccount`, `loginPassword`
+//
+// 返回数据：未在代码中明确指出，但从代码逻辑推测，可能返回一个包含用户信息的列表，如果列表为空，表示登录失败，否则表示登录成功。
+//
+// 用途：这个接口在 `_login` 函数中被调用，用于验证用户输入的当前密码是否正确。`loginAccount` 是用户的登录账号，`loginPassword` 是用户输入的当前密码。
+//
+// 2. 接口地址：`http://a408599l51.wicp.vip/Login/updatePassword`
+//
+// 接口参数：`loginAccount`, `loginPassword`
+//
+// 返回数据：未在代码中明确指出，但从代码逻辑推测，可能返回一个表示操作成功或失败的状态码或信息。
+//
+// 用途：这个接口在 `_setNewPwd` 函数中被调用，用于更新用户的密码。`loginAccount` 是用户的登录账号，`loginPassword` 是新的密码。
+//
+// 这两个接口都是在用户更改密码时被调用的，用于验证用户的当前密码，并更新用户的密码。

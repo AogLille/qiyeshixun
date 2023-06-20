@@ -127,3 +127,17 @@ class _UserPageState extends State<UserPage>{
     );
   }
 }
+
+//这个页面使用了一个HTTP GET请求来获取用户的信息。
+//
+//接口地址: 'http://a408599l51.wicp.vip/Login/selectLoginById'
+//
+//接口参数: 'loginAccount'，该参数值来自于页面初始化时传入的参数。
+//
+//返回数据: 根据代码片段，返回的数据应该是一个包含用户信息的对象，这个对象至少包括 'loginMail' 和 '_loginPassword' 这两个字段。
+//
+//用途:
+//1. '_loginMail' 是用户的电子邮件地址，它被用于在用户信息页显示，以及在修改电子邮件地址时作为初始值。
+//2. '_loginPassword' 是用户的密码，它在修改密码时被用作初始值。
+//
+//在这个页面中，这个接口的主要作用是在用户修改了电子邮件地址或密码之后，重新获取并显示更新后的信息。
